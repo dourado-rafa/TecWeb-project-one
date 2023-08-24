@@ -5,7 +5,7 @@ def read_file(filepath:str) -> bytes:
     return open(filepath, 'r+b').read()
 
 def load_template(filename:str) -> str:
-    return open(f'templates/{filename}', 'r').read()
+    return open(f'templates/{filename}', 'r', encoding="utf-8").read()
 
 def build_response(code:int=200, reason:str='OK', headers:str='', body:str='') -> bytes:
     headers = '\n'+headers if headers != '' else headers
