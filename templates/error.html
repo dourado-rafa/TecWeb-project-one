@@ -20,17 +20,23 @@
       <img src="./img/logo-getit.png" class="logo" />
       <span class="subtitle">Como o Post-it, mas com outro verbo</span>
     </div>
-
-    <main class="container">
-      <form class="form-card" action="/new" method="post">
-        <input class="form-card-title" type="text" name="title" placeholder="Título" />
-        <textarea class="autoresize" name="content" placeholder="Digite o conteúdo..." ></textarea>
-        <button class="interactive btn-yellow" type="submit">Criar</button>
-      </form>
-
-      <ul class="card-container">
-          {notes}
-      </ul>
+    <main class="box-container">
+      
+      <div class="box-error">
+        <div class="card">
+          <div class="card-buttons">
+            <a href="/">
+              <img src="./img/icon-seta.png" class="icon" />
+            </a>
+          </div>
+          <div class="card-header">
+            <h3 class="card-title">Algo deu errado! :(</h3>
+          </div>
+          <div class="card-content">
+            <p>A página "{page}" não pôde ser acessada. Provavelmente ela não foi implementada.<br>Pedimos desculpa pelo transtorno.</p>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script type="text/javascript" src="./scripts/script.js"></script>

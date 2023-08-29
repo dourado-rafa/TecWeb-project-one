@@ -1,5 +1,7 @@
 def extract_route(request:str) -> str:
-    return request.split('\n')[0].split(' ')[1][1:]
+    if request != '':
+        return request.split('\n')[0].split(' ')[1][1:]
+    return ''
 
 def read_file(filepath:str) -> bytes:
     return open(filepath, 'r+b').read()

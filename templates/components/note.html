@@ -1,4 +1,18 @@
-<li>
-    <h3>{title}</h3>
+<li class="card">
+  <div class="card-header">
+    <div class="card-buttons">
+      <form action="/edit" method="post">
+        <input class="none" name="id" value="{id}" />
+        <button class="interactive btn-icon" type="submit"><img src="./img/icon-editar.png" class="icon" /></button>
+      </form>
+      <form action="/delete" method="post">
+        <input class="none" name="id" value="{id}" />
+        <button class="interactive btn-icon" type="submit"><img src="./img/icon-apagar.png" class="icon" /></button>
+      </form>
+    </div>
+    <h3 class="card-title">{title}</h3>
+  </div>
+  <div class="card-content">
     <p>{content}</p>
+  </div>
 </li>

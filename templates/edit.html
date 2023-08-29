@@ -12,7 +12,7 @@
     />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Permanent+Marker&display=swap" />
-    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="./styles/styles.css" />
   </head>
 
   <body>
@@ -22,17 +22,16 @@
     </div>
 
     <main class="container">
-      <form class="form-card" action="/new" method="post">
-        <input class="form-card-title" type="text" name="title" placeholder="Título" />
-        <textarea class="autoresize" name="content" placeholder="Digite o conteúdo..." ></textarea>
-        <button class="interactive btn-yellow" type="submit">Criar</button>
+      <form class="form-card" action="/edit-save" method="post">
+        <input class="none" name="id" value="{id}" />
+        <input class="form-card-title" type="text" name="title" placeholder="Título" value="{title}"/>
+        <textarea class="autoresize" name="content" placeholder="Digite o conteúdo...">{content}</textarea>
+        <div class="buttons">
+            <a class="interactive btn-gray" href="/">Cancelar</a>
+            <button class="interactive btn-yellow" type="submit">Salvar</button>
+        </div>
       </form>
-
-      <ul class="card-container">
-          {notes}
-      </ul>
     </main>
 
-    <script type="text/javascript" src="./scripts/script.js"></script>
   </body>
 </html>

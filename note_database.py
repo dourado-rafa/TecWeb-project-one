@@ -19,12 +19,14 @@ class NoteDatabase(Database):
     def add(self, note: Note) -> None:
         self.execute(f"INSERT INTO note (title, content) VALUES ('{note.title}', '{note.content}')")
 
+    def get(self, id: int) -> Note:
+        cursor = self.conn.execute(f'SELECT title, content, id FROM note WHERE id = {id}')
+        for row in cursor:
+            return Note(row[0], row[1], row[2])
+
     def get_all(self) -> list:
-        cursor = self.conn.execute('Select title, content, id FROM note')
+        cursor = self.conn.execute('SELECT title, content, id FROM note')
         return [Note(row[0], row[1], row[2]) for row in cursor]
 
     def update(self, entry: Note) -> None:
         self.execute(f"UPDATE note SET title = '{entry.title}', content = '{entry.content}' WHERE id = {entry.id}")
-
-    def delete(self, id: int) -> None:
-        self.execute(f"DELETE FROM note WHERE id = {id}")
