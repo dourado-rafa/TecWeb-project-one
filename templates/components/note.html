@@ -1,14 +1,11 @@
-<li class="card">
+<li id="note-{id}" class="card">
   <div class="card-header">
     <div class="card-buttons">
       <form action="/edit" method="post">
         <input class="none" name="id" value="{id}" />
-        <button class="interactive btn-icon" type="submit"><img src="./img/icon-editar.png" class="icon" /></button>
+        <button class="interactive btn-icon" type="submit"><img src="img/icon-editar.png" class="icon" /></button>
       </form>
-      <form action="/delete" method="post">
-        <input class="none" name="id" value="{id}" />
-        <button class="interactive btn-icon" type="submit"><img src="./img/icon-apagar.png" class="icon" /></button>
-      </form>
+      <button class="interactive btn-icon" onclick="deleteNote({id})"><img src="img/icon-apagar.png" class="icon" /></button>
     </div>
     <h3 class="card-title">{title}</h3>
   </div>

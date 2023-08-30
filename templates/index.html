@@ -12,27 +12,27 @@
     />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Permanent+Marker&display=swap" />
-    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="styles/styles.css" />
   </head>
 
   <body>
     <div class="appbar">
-      <img src="./img/logo-getit.png" class="logo" />
+      <img src="img/logo-getit.png" class="logo" />
       <span class="subtitle">Como o Post-it, mas com outro verbo</span>
     </div>
 
     <main class="container">
-      <form class="form-card" action="/new" method="post">
-        <input class="form-card-title" type="text" name="title" placeholder="Título" />
-        <textarea class="autoresize" name="content" placeholder="Digite o conteúdo..." ></textarea>
-        <button class="interactive btn-yellow" type="submit">Criar</button>
-      </form>
+      <div class="form-card">
+        <input id="card-title" class="form-card-title" type="text" placeholder="Título" />
+        <textarea id="card-content" class="autoresize" placeholder="Digite o conteúdo..." ></textarea>
+        <button class="interactive btn-yellow" onclick="createNote()">Criar</button>
+      </div>
 
-      <ul class="card-container">
+      <ul id="notes-list" class="card-container">
           {notes}
       </ul>
     </main>
 
-    <script type="text/javascript" src="./scripts/script.js"></script>
+    <script type="text/javascript" src="scripts/script.js"></script>
   </body>
 </html>

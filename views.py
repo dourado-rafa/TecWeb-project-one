@@ -4,43 +4,41 @@ import urllib
 
 DATABASE = NoteDatabase('notes')
 
-def index(request: str) -> str:
-
-    if request.startswith('POST'):
-        route = extract_route(request)
-        request = request.replace('\r', '')  # Remove caracteres indesejados
-        parts = request.split('\n\n') # Cabeçalho e corpo estão sempre separados por duas quebras de linha
-        header, body = parts
-        
-        if route == 'new':
-            new_note = Note()
-            for form_input in body.split('&'):
-                key, value = urllib.parse.unquote_plus(form_input, encoding='utf-8').split('=')
-                value = ' '.join(value.split('+'))
-                new_note.__setattr__(key, value)
-            DATABASE.add(new_note)
-        
-        elif route == 'delete':
-            _, id = urllib.parse.unquote_plus(body, encoding='utf-8').split('=')
-            DATABASE.delete(id)
-
-        return build_response(303, 'See Other', 'Location: /')
-        
-
+def index():
     notes_data = DATABASE.get_all()
-
     NOTE_TEMPLATE = load_template('components/note.html')
     notes = '\n'.join([ NOTE_TEMPLATE.format(title=note.title, content=note.content, id=note.id) for note in notes_data ])
+    return build_response() + load_template('index.html').format(notes=notes).encode()
 
-    return build_response(headers='Location: /') + load_template('index.html').format(notes=notes).encode()
+def delete_note(request):
+    try:
+        route = extract_route(request)
+        id = int(route.split('/')[-1])
+        DATABASE.delete(id)
+        return build_response(headers='location: /')
+    except:
+        return error(request, 405, 'Method Not Allowed')
 
-def edition(request: str) -> str:
+def create_note(request):
+    if request.startswith('POST'):
+        request = request.replace('\r', '')  # Remove caracteres indesejados
+        header, body = request.split('\n\n') # Cabeçalho e corpo estão sempre separados por duas quebras de linha
+        
+        new_note = Note()
+        for form_input in body.split('&'):
+            key, value = urllib.parse.unquote_plus(form_input, encoding='utf-8').split('=')
+            value = ' '.join(value.split('+'))
+            new_note.__setattr__(key, value)
+        new_note.id = DATABASE.add(new_note)
+        return build_response() + load_template('components/note.html').format(id=new_note.id, title=new_note.title, content=new_note.content).encode()
+    return error(request, 401, 'Unauthorized')
+
+def edit_note(request):
+    route = extract_route(request)
 
     if request.startswith('POST'):
-        route = extract_route(request)
         request = request.replace('\r', '')  # Remove caracteres indesejados
-        parts = request.split('\n\n') # Cabeçalho e corpo estão sempre separados por duas quebras de linha
-        header, body = parts
+        header, body = request.split('\n\n') # Cabeçalho e corpo estão sempre separados por duas quebras de linha
         
         note = Note()
         if route == 'edit-save':
@@ -49,13 +47,15 @@ def edition(request: str) -> str:
                 value = ' '.join(value.split('+'))
                 note.__setattr__(key, value)
             DATABASE.update(note)
-            return build_response(303, 'See Other', 'Location: /')
+            return build_response(303, 'See Other', 'location: /')
         
         else:
             _, id = urllib.parse.unquote_plus(body, encoding='utf-8').split('=')
-            note = DATABASE.get(id)
+            note = DATABASE.get(int(id))
             return build_response() + load_template('edit.html').format(id=note.id, title=note.title, content=note.content).encode()
+    else:
+        return error(request, 401, 'Unauthorized')
         
-def error(request: str) -> str:
+def error(request, code=404, reason='Not Found'):
     route = extract_route(request)
-    return build_response(404, 'Not Found') + load_template('error.html').format(page=route).encode()
+    return build_response(code, reason) + load_template('error.html').format(code=code, reason=reason, page=route).encode()

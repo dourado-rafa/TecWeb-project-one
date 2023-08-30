@@ -16,9 +16,12 @@ class NoteDatabase(Database):
          ]
         super().__init__(database_name, 'note', columns, path)
 
-    def add(self, note: Note) -> None:
+    def add(self, note: Note) -> int:
         self.execute(f"INSERT INTO note (title, content) VALUES ('{note.title}', '{note.content}')")
-
+        cursor = self.conn.execute('SELECT max(id) FROM note')
+        for row in cursor:
+            return row[0]
+        
     def get(self, id: int) -> Note:
         cursor = self.conn.execute(f'SELECT title, content, id FROM note WHERE id = {id}')
         for row in cursor:

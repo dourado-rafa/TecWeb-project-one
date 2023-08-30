@@ -1,7 +1,7 @@
 import socket
 from pathlib import Path
 from utils import extract_route, read_file, build_response
-from views import index, edition, error
+from views import index, create_note, delete_note, edit_note, error
 
 CUR_DIR = Path(__file__).parent
 SERVER_HOST = 'localhost'
@@ -18,16 +18,27 @@ while True:
     client_connection, client_address = server_socket.accept()
 
     request = client_connection.recv(1024).decode()
-    print('*'*100 + '\n' + request)
+    request_text = request.split('\n')
+    print('===== Nova Requisição =====' + '\n' + request_text[0] + '\n' + request_text[-1] + '\n')
 
     route = extract_route(request)
     filepath = CUR_DIR / route
+    
     if filepath.is_file():
         response = build_response() + read_file(filepath)
-    elif route in ['', 'new', 'delete']:
-        response = index(request)
+
+    elif route == '':
+        response = index()
+
+    elif 'create' in route:
+        response = create_note(request)
+
+    elif 'delete' in route:
+        response = delete_note(request)
+
     elif 'edit' in route:
-        response = edition(request) 
+        response = edit_note(request) 
+
     else:
         response = error(request)
 
