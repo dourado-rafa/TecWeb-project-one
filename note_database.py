@@ -9,7 +9,7 @@ class Note():
 
 
 class NoteDatabase(Database):
-    def __init__(self, database_name: str, path: str='./data/') -> None:
+    def __init__(self, database_name: str, path: str='data/') -> None:
         columns = [
             {'name': 'title',   'type': 'TEXT', 'restriction': ''},
             {'name': 'content', 'type': 'TEXT', 'restriction': 'NOT NULL'},

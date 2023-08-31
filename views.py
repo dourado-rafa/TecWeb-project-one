@@ -35,26 +35,28 @@ def create_note(request):
 
 def edit_note(request):
     route = extract_route(request)
+    id = route.split('-')[-1]
+    note = None
 
     if request.startswith('POST'):
         request = request.replace('\r', '')  # Remove caracteres indesejados
         header, body = request.split('\n\n') # Cabeçalho e corpo estão sempre separados por duas quebras de linha
         
         note = Note()
-        if route == 'edit-save':
-            for form_input in body.split('&'):
-                key, value = urllib.parse.unquote_plus(form_input, encoding='utf-8').split('=')
-                value = ' '.join(value.split('+'))
-                note.__setattr__(key, value)
-            DATABASE.update(note)
-            return build_response(303, 'See Other', 'location: /')
+        for form_input in body.split('&'):
+            key, value = urllib.parse.unquote_plus(form_input, encoding='utf-8').split('=')
+            value = ' '.join(value.split('+'))
+            note.__setattr__(key, value)
+        note.id = int(id)
+        DATABASE.update(note)
+        return build_response()
         
-        else:
-            _, id = urllib.parse.unquote_plus(body, encoding='utf-8').split('=')
-            note = DATABASE.get(int(id))
-            return build_response() + load_template('edit.html').format(id=note.id, title=note.title, content=note.content).encode()
-    else:
-        return error(request, 401, 'Unauthorized')
+    elif id.isnumeric():
+        note = DATABASE.get(int(id))
+    
+    if note is not None:
+        return build_response() + load_template('edit.html').format(id=note.id, title=note.title, content=note.content).encode()
+    return error(request)
         
 def error(request, code=404, reason='Not Found'):
     route = extract_route(request)

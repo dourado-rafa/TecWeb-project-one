@@ -17,13 +17,12 @@
 
   <body>
     <div class="appbar">
-      <img src="./img/logo-getit.png" class="logo" />
+      <img src="img/logo-getit.png" class="logo" />
       <span class="subtitle">Como o Post-it, mas com outro verbo</span>
     </div>
 
     <main class="container">
-      <form class="form-card" action="/edit-save" method="post">
-        <input class="none" name="id" value="{id}" />
+      <form class="form-card" action="/edit-save-{id}" method="post">
         <input class="form-card-title" type="text" name="title" placeholder="Título" value="{title}"/>
         <textarea class="autoresize" name="content" placeholder="Digite o conteúdo...">{content}</textarea>
         <div class="buttons">
