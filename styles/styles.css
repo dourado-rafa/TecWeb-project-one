@@ -191,6 +191,7 @@ display: none;
 }
 
 .btn-yellow {
+  font-size: 1rem;
   padding: 0.5rem 0.75rem;
   width: 95%;
 
@@ -202,6 +203,7 @@ display: none;
   background-color: #f7d736;
 }
 .btn-gray {
+  font-size: 1rem;
   padding: 0.5rem 0.75rem;
   width: 95%;
 

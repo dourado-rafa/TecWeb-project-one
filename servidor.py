@@ -1,7 +1,7 @@
 import socket
 from pathlib import Path
 from utils import extract_route, read_file, build_response
-from views import index, create_note, delete_note, edit_note, error
+from views import index, create_note, delete_note, edit_note, update_note, error
 
 CUR_DIR = Path(__file__).parent
 SERVER_HOST = 'localhost'
@@ -37,13 +37,15 @@ while True:
         response = delete_note(request)
 
     elif 'edit' in route:
-        response = edit_note(request) 
+        response = edit_note(request)
+    
+    elif 'update' in route:
+        response = update_note(request)
 
     else:
         response = error(request)
 
     client_connection.sendall(response)
-
     client_connection.close()
 
 server_socket.close()
