@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
     randomStyle(card)
   }
 });
+function updateAmount() {
+  let noteList = document.getElementById('notes-list')
+  let amount = document.getElementById('amount')
+  amount.innerText = `Há ${noteList.childElementCount} notas cadastradas`
+}
 
 function createNote() {
   xhr.open('POST', `/create`, true)
@@ -32,6 +37,7 @@ function createNote() {
       let card = stringToElement(xhr.response)
       randomStyle(card)
       document.getElementById('notes-list').appendChild(card)
+      updateAmount()
     } else {
       console.log(`A tentativa de criar essa nota falhou!`)
     }
@@ -49,6 +55,7 @@ function deleteNote(id) {
     if (xhr.status == 200) {
       let note = document.getElementById(`note-${id}`)
       note.parentNode.removeChild(note)
+      updateAmount()
     } else {
       console.log(`A tentativa de apagar a nota ${id} falhou!`)
     }
