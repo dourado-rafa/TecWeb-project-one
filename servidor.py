@@ -4,7 +4,7 @@ from utils import extract_route, read_file, build_response
 from views import index, create_note, delete_note, edit_note, update_note, error
 
 CUR_DIR = Path(__file__).parent
-SERVER_HOST = '0.0.0.0'
+SERVER_HOST = 'localhost'
 SERVER_PORT = 8080
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
