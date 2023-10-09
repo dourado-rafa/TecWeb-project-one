@@ -6,9 +6,10 @@ DATABASE = NoteDatabase('notes')
 
 def index():
     notes_data = DATABASE.get_all()
+
     NOTE_TEMPLATE = load_template('components/note.html')
     notes = '\n'.join([ NOTE_TEMPLATE.format(title=note.title, content=note.content, id=note.id) for note in notes_data ])
-    return build_response() + load_template('index.html').format(notes=notes).encode()
+    return build_response() + load_template('index.html').format(notes=notes, amount=len(notes_data)).encode()
 
 def delete_note(request):
     route = extract_route(request)
