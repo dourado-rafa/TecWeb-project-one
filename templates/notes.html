@@ -17,26 +17,20 @@
 
   <body>
     <div class="appbar">
-      <a class="interactive" href="/"><img src="../img/logo-getit.png" class="logo" /></a>
-      <span class="subtitle">Como o Post-it, mas com outro verbo</span>
-    </div>
-    <main class="box-container">
-      
-      <div class="box-error">
-        <div class="card">
-          <div class="card-buttons">
-            <a href="/">
-              <img src="../img/icon-seta.png" class="icon" />
-            </a>
-          </div>
-          <div class="card-header">
-            <h3 class="card-title">{code} - {reason}</h3>
-          </div>
-          <div class="card-content">
-            <p>A página "{page}" não pôde ser acessada.<br>Pedimos desculpa pelo transtorno.</p>
-          </div>
-        </div>
+      <div class="appbar-container">
+        <a class="interactive" href="/"><img src="../img/logo-getit.png" class="logo" /></a>
+        <span class="subtitle">Como o Post-it, mas com outro verbo</span>
       </div>
+      <div class="appbar-container">
+        <span id="amount" class="subtitle">Há {amount} notas cadastradas</span>
+        <a class="interactive" href="\notes"><img src="../img/icon-nota.png" class="note-button" /></a>
+      </div>
+    </div>
+
+    <main class="container">
+      <ul id="notes-list" class="card-container">
+          {notes}
+      </ul>
     </main>
 
     <script type="text/javascript" src="../scripts/script.js"></script>

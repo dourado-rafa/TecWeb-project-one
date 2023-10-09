@@ -36,7 +36,7 @@ body {
   justify-content: space-between;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
-.logo-container {
+.appbar-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -44,6 +44,10 @@ body {
 
 .logo {
   width: 5vw;
+  padding: 0.5rem;
+}
+.note-button {
+  width: 3vw;
   padding: 0.5rem;
 }
 .subtitle {
@@ -118,7 +122,7 @@ body {
   justify-content: space-around;
   flex-wrap: wrap;
 
-  margin: 0 2.5vw;
+  margin: 1rem 2.5vw;
 
 }
 
